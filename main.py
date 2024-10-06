@@ -1,14 +1,10 @@
 import csv
-import time
-from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 import requests
-import random
 
 url = 'https://vzdelavanie.uniza.sk/vzdelavanie/'
 code = 316027
 response = requests.get(url)
-
 
 # Create and open a CSV file for writing
 with open('grades.csv', 'w', newline='', encoding='utf-8') as csv_file:
