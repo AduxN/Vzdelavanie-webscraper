@@ -5,8 +5,8 @@ import pandas as pd
 df = pd.read_csv('subject_info.csv')
 
 # scraped_data = ' '.join(df['podmienky'].fillna('') + ' ' + df['vysledky'].fillna('') + ' ' + df['osnova'].fillna(''))
-# scraped_data = ' '.join(df['vysledky'].fillna('') + ' ' + df['osnova'].fillna(''))
-scraped_data = ' '.join(df['osnova'].fillna(''))
+scraped_data = ' '.join(df['vysledky'].fillna('') + ' ' + df['osnova'].fillna(''))
+# scraped_data = ' '.join(df['osnova'].fillna(''))
 
 slovak_stopwords = [
     'a', 'aby', 'aj', 'ak', 'ale', 'alebo', 'ani', 'ako', 'asi', 'ba', 'bez',
@@ -26,7 +26,11 @@ def clean_and_tokenize(text):
 words = clean_and_tokenize(scraped_data)
 
 word_freq = Counter(words)
-most_common_words = word_freq.most_common(100)
+most_common_words = word_freq.most_common(1000)
+
+df_common_words = pd.DataFrame(most_common_words, columns=['Word', 'Frequency'])
+
+df_common_words.to_csv('common_words.csv', index=False)
 
 corpus = [word for word, freq in most_common_words]
 
