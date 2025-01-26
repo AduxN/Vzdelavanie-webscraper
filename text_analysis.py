@@ -2,7 +2,7 @@ import re
 from collections import Counter
 import pandas as pd
 
-df = pd.read_csv('subject_info.csv')
+df = pd.read_csv('csv/subject_info.csv')
 
 # scraped_data = ' '.join(df['podmienky'].fillna('') + ' ' + df['vysledky'].fillna('') + ' ' + df['osnova'].fillna(''))
 scraped_data = ' '.join(df['vysledky'].fillna('') + ' ' + df['osnova'].fillna(''))

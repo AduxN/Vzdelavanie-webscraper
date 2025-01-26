@@ -1,4 +1,5 @@
 import csv
+import pandas as pd
 from bs4 import BeautifulSoup
 import requests
 
@@ -7,7 +8,7 @@ code = 316027
 response = requests.get(url)
 
 # Create and open a CSV file for writing
-with open('grades.csv', 'w', newline='', encoding='utf-8') as csv_file:
+with open('csv/grades.csv', 'w', newline='', encoding='utf-8') as csv_file:
     csv_writer = csv.writer(csv_file)
 
     # Write header row to the CSV file
@@ -53,11 +54,11 @@ with open('grades.csv', 'w', newline='', encoding='utf-8') as csv_file:
             # Map each grade to a numerical value
             grade_values = {
                 "grade_A": 1.0,
-                "grade_B": 2.0,
-                "grade_C": 3.0,
-                "grade_D": 4.0,
-                "grade_E": 5.0,
-                "grade_FX": 6.0
+                "grade_B": 1.5,
+                "grade_C": 2.0,
+                "grade_D": 2.5,
+                "grade_E": 3.0,
+                "grade_FX": 4.0
             }
 
             grade_names = ["grade_A", "grade_B", "grade_C", "grade_D", "grade_E", "grade_FX"]
@@ -68,3 +69,9 @@ with open('grades.csv', 'w', newline='', encoding='utf-8') as csv_file:
             csv_writer.writerow([subj_code, count, grades[0][0], grades[0][1], grades[0][2], grades[0][3], grades[0][4], grades[0][5], average_grade_value])
             print(f"Code {code} processed.")
         code += 1
+
+
+df = pd.read_csv('csv/grades.csv')
+df_cleaned = df.drop_duplicates()
+df_cleaned.to_csv('csv/grades_cleaned.csv', index=False)
+print("Duplicates removed and saved to 'csv/grades_cleaned.csv'")
